@@ -16,6 +16,7 @@ import org.mql.platform.tools.preregistration.LocalDateAdapter;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Candidate {
 
+	//testPush
 	private String cin;
 	private String cne;
 	private String lastName;
