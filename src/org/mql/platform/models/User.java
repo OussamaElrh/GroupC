@@ -118,4 +118,25 @@ public abstract class User {
   public void setAddress(Address address) {
     this.address = address;
   }
+  
+  public User()
+  {
+	  
+  }
+
+public User(Integer id, String firstName, String lastName, String phoneNumber, String email,
+		String password, Gender gender, Address address) {
+	super();
+	this.id = id;
+	this.roles = roles;
+	this.firstName = firstName;
+	this.lastName = lastName;
+	this.phoneNumber = phoneNumber;
+	this.email = email;
+	this.password = password;
+	this.gender = gender;
+	this.address = address;
+}
+  
+  
 }
