@@ -116,9 +116,9 @@ public class Student extends User {
 
 	}
 
-	public Student(Integer id, String firstName, String lastName, String phoneNumber, String email, String password,
+	public Student(String firstName, String lastName, String phoneNumber, String email, String password,
 			Gender gender, Address address, String cne, String cin, LocalDate birthday, Level level, Status status) {
-		super(id, firstName, lastName, phoneNumber, email, password, gender, address);
+		super(firstName, lastName, phoneNumber, email, password, gender, address);
 
 		this.cne = cne;
 		this.cin = cin;

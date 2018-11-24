@@ -37,7 +37,6 @@ public class MailManager {
 		} catch (Exception e) {
 			return null;
 		}
-
 	}
 	
 	//method for sending the generated password to a student
