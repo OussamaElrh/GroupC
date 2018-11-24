@@ -32,14 +32,13 @@ public class CoefficientDaoDefault implements CoefficientDao {
 	
 	@Autowired
 	private ConfigurableEnvironment env;
-
+ 
 	private Coefficients coefficients;
 	
 	public CoefficientDaoDefault() {
 		try {
 			coefficients = load();
 		} catch (JAXBException e) {
-
 		}
 	}
 	
