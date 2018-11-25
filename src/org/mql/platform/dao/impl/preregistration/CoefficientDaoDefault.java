@@ -12,6 +12,7 @@ import java.io.File;
 import java.time.LocalDate;
 import java.util.List;
 
+import javax.annotation.Resource;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
@@ -26,20 +27,18 @@ import org.mql.platform.models.preregistration.EducationLevels;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
 @Repository
 public class CoefficientDaoDefault implements CoefficientDao {
 	
 	@Autowired
-	private ConfigurableEnvironment env;
+	ConfigurableEnvironment env;
  
 	private Coefficients coefficients;
 	
 	public CoefficientDaoDefault() {
-		try {
-			coefficients = load();
-		} catch (JAXBException e) {
-		}
+		
 	}
 	
 	/**
@@ -47,7 +46,7 @@ public class CoefficientDaoDefault implements CoefficientDao {
 	 * @return file of coefficients
 	 */
 	private File coefFile() {
-		File file = new File(env.getProperty("resources") + "/coefficients.xml");
+		File file = new File(env.getProperty("res.test") + "/coefficients.xml");
 		try {
 			if(!file.exists())
 				file.createNewFile();
@@ -63,46 +62,48 @@ public class CoefficientDaoDefault implements CoefficientDao {
 	 * @return our coefficients as class coefficients
 	 * @throws JAXBException
 	 */
-	private Coefficients load() throws JAXBException {
-		JAXBContext jaxbContext = JAXBContext.newInstance(Coefficients.class);
-		Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-
-		Coefficients coeff = (Coefficients) jaxbUnmarshaller.unmarshal(coefFile());
-
-		return coeff;
+	private Coefficients load(){
+		try {
+			JAXBContext jaxbContext = JAXBContext.newInstance(Coefficients.class);
+			Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+			Coefficients coeff = (Coefficients) jaxbUnmarshaller.unmarshal(coefFile());
+			return coeff;
+		} catch (Exception e) {
+			System.out.println("error : " + e.getMessage());
+			return new Coefficients();
+		}
 	}
+	
+	public void save(){
+		try {
+			JAXBContext jaxbContext = JAXBContext.newInstance(Coefficients.class);
+			Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
 
-	public void save() throws JAXBException {
-		JAXBContext jaxbContext = JAXBContext.newInstance(Coefficients.class);
-		Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
+			jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 
-		jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-
-		// Marshal the coefficients list in file
-		jaxbMarshaller.marshal(coefficients, coefFile());
+			// Marshal the coefficients list in file
+			jaxbMarshaller.marshal(coefficients, coefFile());
+		} catch (Exception e) {
+			System.out.println("error : " + e.getMessage());
+		}
 	}
 
 	public void add(Coefficient coefficient) {
-		try {
-			if(search(coefficient.getName()) != null) {
-				update(coefficient.getName(), coefficient.getValue());
-			}
-			else {
+		coefficients = load();
+		if(search(coefficient.getName()) != null) {
+			update(coefficient.getName(), coefficient.getValue());
+		}
+		else {
 			coefficients.getCoefficients().add(coefficient);
 			save();
-			}
-		} catch (JAXBException e) {
-			e.printStackTrace();
 		}
+
 	}
 
 	public void delete(Coefficient coefficient) {
-		try {
-			coefficients.getCoefficients().remove(coefficient);
-			save();
-		} catch (JAXBException e) {
-			e.printStackTrace();
-		}
+		coefficients = load();
+		coefficients.getCoefficients().remove(coefficient);
+		save();
 	}
 
 	/**
@@ -111,6 +112,7 @@ public class CoefficientDaoDefault implements CoefficientDao {
 	 * @param
 	 */
 	public void update(String name, double value) {
+		coefficients = load();
 		try {
 			for (Coefficient coef : coefficients.getCoefficients()) {
 				if (coef.getName().equals(name))
@@ -123,6 +125,7 @@ public class CoefficientDaoDefault implements CoefficientDao {
 	}
 
 	public Coefficient search(String name) {
+		coefficients = load();
 		Coefficient coeff = null;
 		try {
 			for (Coefficient coef : coefficients.getCoefficients()) {
@@ -137,6 +140,7 @@ public class CoefficientDaoDefault implements CoefficientDao {
 	}
 	
 	public List<Coefficient> list() {
+		coefficients = load();
 		return coefficients.getCoefficients();
 	}
 
