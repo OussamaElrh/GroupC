@@ -62,16 +62,15 @@ public class CoefficientDaoDefault implements CoefficientDao {
 	 * @return our coefficients as class coefficients
 	 * @throws JAXBException
 	 */
-	private Coefficients load(){
-		try {
-			JAXBContext jaxbContext = JAXBContext.newInstance(Coefficients.class);
-			Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-			Coefficients coeff = (Coefficients) jaxbUnmarshaller.unmarshal(coefFile());
-			return coeff;
-		} catch (Exception e) {
-			System.out.println("error : " + e.getMessage());
-			return new Coefficients();
-		}
+	private void load(){
+		if(coefficients == null)
+			try {
+				JAXBContext jaxbContext = JAXBContext.newInstance(Coefficients.class);
+				Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+				coefficients = (Coefficients) jaxbUnmarshaller.unmarshal(coefFile());
+			} catch (Exception e) {
+				System.out.println("error : " + e.getMessage());
+			}
 	}
 	
 	public void save(){
@@ -89,7 +88,7 @@ public class CoefficientDaoDefault implements CoefficientDao {
 	}
 
 	public void add(Coefficient coefficient) {
-		coefficients = load();
+		load();
 		if(search(coefficient.getName()) != null) {
 			update(coefficient.getName(), coefficient.getValue());
 		}
@@ -101,7 +100,7 @@ public class CoefficientDaoDefault implements CoefficientDao {
 	}
 
 	public void delete(Coefficient coefficient) {
-		coefficients = load();
+		load();
 		coefficients.getCoefficients().remove(coefficient);
 		save();
 	}
@@ -112,7 +111,7 @@ public class CoefficientDaoDefault implements CoefficientDao {
 	 * @param
 	 */
 	public void update(String name, double value) {
-		coefficients = load();
+		load();
 		try {
 			for (Coefficient coef : coefficients.getCoefficients()) {
 				if (coef.getName().equals(name))
@@ -125,7 +124,7 @@ public class CoefficientDaoDefault implements CoefficientDao {
 	}
 
 	public Coefficient search(String name) {
-		coefficients = load();
+		load();
 		Coefficient coeff = null;
 		try {
 			for (Coefficient coef : coefficients.getCoefficients()) {
@@ -140,7 +139,7 @@ public class CoefficientDaoDefault implements CoefficientDao {
 	}
 	
 	public List<Coefficient> list() {
-		coefficients = load();
+		load();
 		return coefficients.getCoefficients();
 	}
 
