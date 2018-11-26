@@ -1,6 +1,8 @@
 package org.mql.platform.models;
 
+import java.util.HashSet;
 import java.util.Set;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
@@ -20,9 +22,9 @@ public class Module {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
 
-  @OneToMany(mappedBy = "module")
-  private Set<Project> projects;
+  private String description;
 
+  @Column(unique = true)
   private String name;
 
   @Enumerated
@@ -32,7 +34,7 @@ public class Module {
   private Professor professor;
 
   @OneToMany
-  private Set<Document> documents;
+  private Set<Document> documents = new HashSet<>();
 
   public Module() {
   }
@@ -43,14 +45,6 @@ public class Module {
 
   public void setId(Integer id) {
     this.id = id;
-  }
-
-  public Set<Project> getProjects() {
-    return projects;
-  }
-
-  public void setProjects(Set<Project> projects) {
-    this.projects = projects;
   }
 
   public String getName() {
@@ -75,5 +69,21 @@ public class Module {
 
   public void setProfessor(Professor professor) {
     this.professor = professor;
+  }
+
+  public String getDescription() {
+    return description;
+  }
+
+  public void setDescription(String description) {
+    this.description = description;
+  }
+
+  public Set<Document> getDocuments() {
+    return documents;
+  }
+
+  public void setDocuments(Set<Document> documents) {
+    this.documents = documents;
   }
 }

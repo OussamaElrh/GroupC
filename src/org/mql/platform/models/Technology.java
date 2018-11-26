@@ -6,7 +6,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 /**
- * @author mehdithe
+ * @author chermehdi
  */
 @Entity
 public class Technology {

@@ -9,5 +9,7 @@ public enum DocumentType {
 
   PRESENTATION,
 
-  COURSE
+  COURSE,
+
+  PROGRESS_TYPE
 }
