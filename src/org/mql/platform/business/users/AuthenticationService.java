@@ -1,4 +1,4 @@
-package org.mql.platform.business;
+package org.mql.platform.business.users;
 
 import org.mql.platform.models.User;
 

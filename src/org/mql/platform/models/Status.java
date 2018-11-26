@@ -5,5 +5,7 @@ package org.mql.platform.models;
  */
 public enum Status {
 
-  SINGLE
+  SINGLE,
+
+  MARRIED
 }

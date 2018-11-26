@@ -1,6 +1,7 @@
 package org.mql.platform.models;
 
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,6 +13,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -25,29 +27,11 @@ public class Project {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
 
-  @ManyToMany
-  @JoinTable(
-      name = "project_team",
-      joinColumns = @JoinColumn(name = "project_id", referencedColumnName = "id"),
-      inverseJoinColumns = {
-          @JoinColumn(
-              name = "team_level", referencedColumnName = "level"
-          ),
-          @JoinColumn(
-              name = "team_name", referencedColumnName = "name"
-          ),
-          @JoinColumn(
-              name = "team_year", referencedColumnName = "year"
-          )
-      }
-  )
-  private Set<Team> teams;
+  @OneToOne
+  private Team team;
 
   @OneToMany
-  private Set<Document> documents;
-
-  @ManyToOne
-  private Module module;
+  private Set<Document> documents = new HashSet<>();
 
   private String title;
 
@@ -66,28 +50,12 @@ public class Project {
     this.id = id;
   }
 
-  public Set<Team> getTeams() {
-    return teams;
-  }
-
-  public void setTeams(Set<Team> teams) {
-    this.teams = teams;
-  }
-
   public Set<Document> getDocuments() {
     return documents;
   }
 
   public void setDocuments(Set<Document> documents) {
     this.documents = documents;
-  }
-
-  public Module getModule() {
-    return module;
-  }
-
-  public void setModule(Module module) {
-    this.module = module;
   }
 
   public String getTitle() {
@@ -112,5 +80,13 @@ public class Project {
 
   public void setCreatedAt(LocalDate createdAt) {
     this.createdAt = createdAt;
+  }
+
+  public Team getTeam() {
+    return team;
+  }
+
+  public void setTeam(Team team) {
+    this.team = team;
   }
 }
