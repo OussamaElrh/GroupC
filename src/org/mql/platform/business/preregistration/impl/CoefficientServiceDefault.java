@@ -1,4 +1,4 @@
-package org.mql.platform.business.impl.preregistration;
+package org.mql.platform.business.preregistration.impl;
 
 import java.util.List;
 
