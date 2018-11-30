@@ -19,27 +19,27 @@ public class CoefficientServiceDefault implements CoefficientService{
 		this.coefficientDao = coefficientDao;
 	}
 
-	public void add(Coefficient coefficient) {
+	public void addCoefficient(Coefficient coefficient) {
 		coefficientDao.add(coefficient);
 	}
 
-	public void delete(Coefficient coefficient) {
+	public void deleteCoefficient(Coefficient coefficient) {
 		coefficientDao.delete(coefficient);
 	}
 
-	public void update(String name, double value) {
+	public void updateCoefficient(String name, double value) {
 		coefficientDao.update(name, value);
 	}
 
-	public Coefficient search(String name) {
+	public Coefficient searchCoefficient(String name) {
 		return coefficientDao.search(name);
 	}
 
-	public double markCalculate(EducationLevels educationLevels) {
-		return coefficientDao.markCalculate(educationLevels);
+	public double calculateMark(EducationLevels educationLevels) {
+		return coefficientDao.calculateMark(educationLevels);
 	}
 
-	public List<Coefficient> list() {
+	public List<Coefficient> listOfCoefficient() {
 		return coefficientDao.list();
 	}
 

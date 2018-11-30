@@ -5,11 +5,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * @author mehdithe
  */
 @Entity
+@XmlRootElement
 public class Address {
 
   @Id

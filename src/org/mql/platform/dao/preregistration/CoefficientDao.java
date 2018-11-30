@@ -11,24 +11,23 @@ public interface CoefficientDao {
 	 * 
 	 * interface to define Dao methods for Coefficient
 	 * 
-	 * @author fatimaZahra
 	 *
 	 */
 
-	void add(Coefficient coefficient);
+	public void add(Coefficient coefficient);
 
-	void delete(Coefficient coefficient);
+	public void delete(Coefficient coefficient);
 
-	void update(String name, double value);
+	public void update(String name, double value);
 
-	Coefficient search(String name);
+	public Coefficient search(String name);
 	
-	List<Coefficient> list();
+	public List<Coefficient> list();
 
 	/**
 	 * 
 	 * method for calculating the pre-selection average of a candidate
 	 *
 	 */
-	double markCalculate(EducationLevels educationLevels);
+	public double calculateMark(EducationLevels educationLevels);
 }

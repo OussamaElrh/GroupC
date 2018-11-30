@@ -7,15 +7,15 @@ import org.mql.platform.models.preregistration.EducationLevels;
 
 public interface CoefficientService {
 	
-	void add(Coefficient coefficient);
+	public void addCoefficient(Coefficient coefficient);
 
-	void delete(Coefficient coefficient);
+	public void deleteCoefficient(Coefficient coefficient);
 
-	void update(String name, double value);
+	public void updateCoefficient(String name, double value);
 
-	Coefficient search(String name);
+	public Coefficient searchCoefficient(String name);
 	
-	List<Coefficient> list();
+	public List<Coefficient> listOfCoefficient();
 
-	double markCalculate(EducationLevels educationLevels);
+	public double calculateMark(EducationLevels educationLevels);
 }
