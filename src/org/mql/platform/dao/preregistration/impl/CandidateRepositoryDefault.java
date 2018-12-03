@@ -321,7 +321,7 @@ public class CandidateRepositoryDefault implements CandidateRepository {
 			add(candidate, students, "students");
 		} else {
 			candidate = searchWaitingCandidatesByCne(cne);
-			add(candidate, waintingList, "waiting");
+			add(candidate, waintingList, "students");
 		}
 	}
 	
