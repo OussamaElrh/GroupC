@@ -18,7 +18,6 @@ import org.mql.platform.models.Level;
 import org.mql.platform.models.Student;
 import org.mql.platform.models.preregistration.Candidate;
 import org.mql.platform.models.preregistration.Candidates;
-import org.mql.platform.models.preregistration.Coefficient;
 import org.mql.platform.tools.preregistration.MailManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.ConfigurableEnvironment;
