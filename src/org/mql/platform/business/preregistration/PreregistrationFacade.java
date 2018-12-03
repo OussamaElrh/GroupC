@@ -8,6 +8,7 @@ import org.mql.platform.models.preregistration.EducationLevels;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/*@ Busines façade*/
 @Service
 public class PreregistrationFacade {
 
