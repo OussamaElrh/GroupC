@@ -33,7 +33,7 @@ public class CandidateRepositoryDefault implements CandidateRepository {
 	
 	private Marshaller marshaller;
 	/******************************************/
-	/* Repos used*/
+	/* Repos used **/
 	
 	private CoefficientRepository coefficientRepository;
 	
