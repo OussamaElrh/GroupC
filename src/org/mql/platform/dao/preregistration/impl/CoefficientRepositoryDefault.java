@@ -1,7 +1,6 @@
 package org.mql.platform.dao.preregistration.impl;
 
 import java.io.File;
-import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -10,18 +9,16 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
-import org.mql.platform.dao.preregistration.CoefficientDao;
+import org.mql.platform.dao.preregistration.CoefficientRepository;
 import org.mql.platform.models.preregistration.Coefficient;
 import org.mql.platform.models.preregistration.Coefficients;
 import org.mql.platform.models.preregistration.EducationLevels;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
 import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class CoefficientDaoDefault implements CoefficientDao {
+public class CoefficientRepositoryDefault implements CoefficientRepository {
 	
 	@Autowired
 	ConfigurableEnvironment env;
@@ -29,7 +26,7 @@ public class CoefficientDaoDefault implements CoefficientDao {
 	private Coefficients coefficients;
 	private JAXBContext jaxbContext;
 
-	public CoefficientDaoDefault() {
+	public CoefficientRepositoryDefault() {
 		try {
 			this.jaxbContext = JAXBContext.newInstance(Coefficients.class);
 		} catch (Exception e) {
@@ -43,7 +40,7 @@ public class CoefficientDaoDefault implements CoefficientDao {
 	 * @return xml coefficients
 	 */
 	public File getFile() {
-		String path = env.getProperty("resources");
+		String path = env.getProperty("resources") + "/";
 		File directory = new File(path);
 		if(!directory.exists())
 			directory.mkdirs();
@@ -104,10 +101,10 @@ public class CoefficientDaoDefault implements CoefficientDao {
 		}
 	}
 
-	public void add(Coefficient coefficient) {
+	public void addCoefficient(Coefficient coefficient) {
 		
-		if(search(coefficient.getName()) != null) {
-			update(coefficient.getName(), coefficient.getValue());
+		if(searchCoefficient(coefficient.getName()) != null) {
+			updateCoefficient(coefficient.getName(), coefficient.getValue());
 		}
 		else {
 			coefficients.getCoefficients().add(coefficient);
@@ -115,7 +112,7 @@ public class CoefficientDaoDefault implements CoefficientDao {
 		}
 	}
 
-	public void delete(Coefficient coefficient) {
+	public void deleteCoefficient(Coefficient coefficient) {
 		coefficients.getCoefficients().remove(coefficient);
 		save();
 	}
@@ -125,7 +122,7 @@ public class CoefficientDaoDefault implements CoefficientDao {
 	 * 
 	 * @param
 	 */
-	public void update(String name, double value) {
+	public void updateCoefficient(String name, double value) {
 		for (Coefficient coef : coefficients.getCoefficients()) {
 			if (coef.getName().equals(name))
 				coef.setValue(value);
@@ -133,7 +130,7 @@ public class CoefficientDaoDefault implements CoefficientDao {
 		save();
 	}
 
-	public Coefficient search(String name) {
+	public Coefficient searchCoefficient(String name) {
 		if(coefficients.getCoefficients() != null) {
 			for (Coefficient coef : coefficients.getCoefficients()) {
 				if (coef.getName().contains(name))
@@ -149,27 +146,27 @@ public class CoefficientDaoDefault implements CoefficientDao {
 
 	public double calculateMark(EducationLevels educationLevels) {
 		double mark = 1;
-		double s1 = search("s1").getValue();
-		double s2 = search("s2").getValue();
-		double s3 = search("s3").getValue();
-		double s4 = search("s4").getValue();
-		double s5 = search("s5").getValue();
-		double s6 = search("s6").getValue();
+		double s1 = searchCoefficient("s1").getValue();
+		double s2 = searchCoefficient("s2").getValue();
+		double s3 = searchCoefficient("s3").getValue();
+		double s4 = searchCoefficient("s4").getValue();
+		double s5 = searchCoefficient("s5").getValue();
+		double s6 = searchCoefficient("s6").getValue();
 		String city = educationLevels.getThirdLevelCity();
 		String establishment = educationLevels.getSecondeLevelEstablishment();
 
 		// Default city coefficient
-		double coeffCity = search("coeffCity").getValue();
+		double coeffCity = searchCoefficient("coeffCity").getValue();
 		
 		// If city coefficient exist
-		if (search(city) != null)
-			coeffCity = search(city).getValue();
+		if (searchCoefficient(city) != null)
+			coeffCity = searchCoefficient(city).getValue();
 
 		// Default establishment coefficient
-		double coeffEstablishment = search("coeffEstablishment").getValue();
+		double coeffEstablishment = searchCoefficient("coeffEstablishment").getValue();
 		// If establishment coefficient exist
-		if (search(establishment) != null)
-			coeffEstablishment = search(establishment).getValue();
+		if (searchCoefficient(establishment) != null)
+			coeffEstablishment = searchCoefficient(establishment).getValue();
 
 		int currentYear = LocalDate.now().getYear();
 		mark = s1 * educationLevels.getS1Mark() + s2 * educationLevels.getS2Mark() + s3 * educationLevels.getS3Mark()

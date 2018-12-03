@@ -1,10 +1,11 @@
-package org.mql.platform.business.preregistration;
+package org.mql.platform.dao.preregistration;
 
 import java.util.List;
 
 import org.mql.platform.models.preregistration.Candidate;
 
-public interface CandidateService {
+public interface CandidateRepository {
+
 	/*
 	 * @method for adding a candidate
 	 */

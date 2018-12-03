@@ -1,4 +1,4 @@
-package org.mql.platform.business;
+package org.mql.platform.business.users;
 
 import java.util.List;
 
@@ -6,9 +6,8 @@ import org.mql.platform.models.Laureate;
 import org.mql.platform.models.Professor;
 import org.mql.platform.models.Student;
 import org.mql.platform.models.User;
-/**
- * @author Jafer oualid
- */
+
+
 public interface UserService {
  
 	public Student addStudent(Student s);

@@ -11,8 +11,9 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.ConfigurableEnvironment;
+import org.springframework.stereotype.Component;
 
-
+@Component
 public class MailManager {
 	@Autowired
 	ConfigurableEnvironment conf;

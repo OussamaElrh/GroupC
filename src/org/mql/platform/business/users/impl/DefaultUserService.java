@@ -1,9 +1,9 @@
-package org.mql.platform.business.impl;
+package org.mql.platform.business.users.impl;
 
 import java.util.List;
 import java.util.Optional;
 
-import org.mql.platform.business.UserService;
+import org.mql.platform.business.users.UserService;
 import org.mql.platform.dao.LaureateRepository;
 import org.mql.platform.dao.ProfessorRepository;
 import org.mql.platform.dao.StudentRepository;
